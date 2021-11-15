@@ -169,4 +169,4 @@ def salir():
 if __name__ == '__main__':
 
     # EJECUTA EL SERVIDOR EN DEBUG
-    app.run(debug=False)
+    app.run(debug=True)
