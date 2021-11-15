@@ -1,7 +1,10 @@
+from http.server import BaseHTTPRequestHandler, HTTPServer, SimpleHTTPRequestHandler
+from typing import NamedTuple
 from urllib import parse
-from http.server import HTTPServer, SimpleHTTPRequestHandler
-import mysql.connector
 import json
+import mysql.connector
+from mysql.connector import Error
+from collections import namedtuple
 
 
 class crud:
@@ -14,43 +17,32 @@ class crud:
             print('Error al conectar a la base de datos')
 
     def consultar(self):
-        try:
-            cursor = self.conexion.cursor(dictionary=True)
-            sql = "SELECT alumnos.idAlumno, alumnos.codigo, alumnos.nombre, alumnos.telefono FROM alumnos LIMIT 6,10"
-            cursor.execute(sql)
-            resultado = cursor.fetchall()
-            return resultado
-        except Exception as e:
-            return str(e)
+        cursor = self.db.cursor(dictionary=True)
+        sql = "SELECT * FROM alumnos LIMIT 0, 5"
+        cursor.execute(sql)
+        result = cursor.fetchall()
+        return result
 
-    def ejecutar_consulta(self, sql, val):
+    def administrar_alumno(self, alumno):
+        if alumno["accion"] == "nuevo":
+            sql = "INSERT INTO alumnos (codigo, nombre, telefono) VALUES (%s, %s, %s)"
+            val = (alumno["codigo"], alumno["nombre"], alumno["telefono"])
+        elif alumno["accion"] == "modificar":
+            sql = "UPDATE alumnos SET codigo=%s, nombre=%s, telefono=%s WHERE idAlumno=%s"
+            val = (alumno["codigo"], alumno["nombre"], alumno["telefono"], alumno["idAlumno"])
+        elif alumno["accion"] == "eliminar":
+            sql = "DELETE FROM alumnos WHERE idAlumno=%s"
+            val = (alumno["idAlumno"],)
+        return self.ejecutar_consultas(sql, val)
+
+    def ejecutar_consultas(self, sql, val):
         try:
-            cursor = self.conexion.cursor()
+            cursor = self.db.cursor()
             cursor.execute(sql, val)
-            self.conexion.commit()
+            self.db.commit()
             return "Registro procesado con exito"
         except Exception as e:
-            return str(e)
-
-    def administrar_alumnos(self, contenido):
-        try:
-            if contenido["accion"] == "nuevo":
-                sql = "INSERT INTO alumnos (codigo, nombre, telefono) VALUES (%s, %s, %s)"
-                val = (contenido["codigo"],
-                       contenido["nombre"], contenido["telefono"])
-
-            elif contenido["accion"] == "modificar":
-                sql = "UPDATE alumnos SET codigo=%s, nombre=%s, telefono=%s WHERE idAlumno=%s"
-                val = (contenido["codigo"], contenido["nombre"],
-                       contenido["telefono"], contenido["idAlumno"])
-
-            elif contenido["accion"] == "eliminar":
-                sql = "DELETE FROM alumnos WHERE idAlumno=%s"
-                val = (contenido["idAlumno"],)
-
-            return self.ejecutar_consulta(sql, val)
-        except Exception as e:
-            return str(e)
+            return "Error: " + str(e)
 
 
 crud = crud()
@@ -58,29 +50,46 @@ crud = crud()
 
 class servidorBasico(SimpleHTTPRequestHandler):
     def do_GET(self):
-        if self.path == '/':
-            self.path = '/inicio.html'
+        if  self.path == "/":
+            self.path = "/menu.html"
             return SimpleHTTPRequestHandler.do_GET(self)
 
-        if self.path == '/consultar':
+        elif self.path == "/registrar":
+            self.path = "/registrar.html"
+            return SimpleHTTPRequestHandler.do_GET(self)
+
+        elif self.path == "/registro":
+            self.path = "/registrar_alumnos.html"
+            return SimpleHTTPRequestHandler.do_GET(self)
+
+        elif self.path == "/docentes":
+            self.path = "/docente.html"
+            return SimpleHTTPRequestHandler.do_GET(self)
+
+        elif self.path == "/comentarios":
+            self.path = "/comentarios.html"
+            return SimpleHTTPRequestHandler.do_GET(self)
+
+        elif self.path == "/consulta":
             resp = crud.consultar()
+            resp = json.dumps(dict(data=resp))
             self.send_response(200)
             self.end_headers()
-            self.wfile.write(json.dumps(dict(resp=resp)).encode('utf-8'))
+            self.wfile.write(resp.encode("utf-8"))
 
     def do_POST(self):
-        if self.path == '/insertar':
-            content_length = int(self.headers['Content-Length'])
-            data = self.rfile.read(content_length)
-            data = data.decode('utf-8')
-            data = parse.unquote(data)
-            data = json.loads(data)
-            resp = crud.administrar_alumnos(data)
-            self.send_response(200)
-            self.end_headers()
-            self.wfile.write(json.dumps(dict(resp=resp)).encode('utf-8'))
+        longitud_contenido = int(self.headers['Content-Length'])
+        contenido = self.rfile.read(longitud_contenido)
+        contenido = contenido.decode("utf-8")
+        contenido = parse.unquote(contenido)
+        contenido = json.loads(contenido)
+        resp = crud.administrar_alumno(contenido)
+        resp = json.dumps(dict(resp=resp))
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(resp.encode("utf-8"))
 
 
-print('Servidor iniciado en el puerto 3000')
-servidor = HTTPServer(('localhost', 3000), servidorBasico)
-servidor.serve_forever()
+print("Servidor iniciado")
+server = HTTPServer(("localhost", 3000), servidorBasico)
+server.serve_forever()
