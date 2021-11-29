@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>	Panel de Control</title>
+		<link type="text/css" rel="stylesheet" href="">
+	</head>
+
+<style>
+
+html {
+	background: rgb(255, 255, 255);
+	margin: auto;
+
+
+}
+
+#menu {
+	font-family: verdana;
+}
+
+#cinema {
+	font-family: "Palatino", sans-serif;
+	font-size: 30px;
+	display: block;
+	margin: 0 auto 0 200px;
+}
+
+#titulo {
+	margin-top: 7px;
+	margin-left: 15px;
+	width: 100px;
+	height: 86px;
+	background: url(../img/logo.png);
+	background-size: 100% 100%;
+
+}
+
+#cerrarsesion {
+	float: right;
+}
+
+#login {
+	margin-left: 50px;
+
+
+
+}
+
+#title2 {
+	font-family: arial;
+
+
+}
+
+.myButton {
+-moz-box-shadow: 0px 1px 0px 0px #fff6af;
+-webkit-box-shadow: 0px 1px 0px 0px #fff6af;
+box-shadow: 0px 1px 0px 0px #fff6af;
+background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffec64), color-stop(1, #ffab23));
+background:-moz-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+background:-webkit-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+background:-o-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+background:-ms-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+background:linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
+filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffec64', endColorstr='#ffab23',GradientType=0);
+background-color:#ffec64;
+-moz-border-radius:6px;
+-webkit-border-radius:6px;
+border-radius:6px;
+border:1px solid #ffaa22;
+display:inline-block;
+cursor:pointer;
+color:#333333;
+font-family:arial;
+font-size:15px;
+font-weight:bold;
+padding:6px 24px;
+text-decoration:none;
+text-shadow:0px 1px 0px #ffee66;
+}
+.myButton:hover {
+background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffab23), color-stop(1, #ffec64));
+background:-moz-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+background:-webkit-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+background:-o-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+background:-ms-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+background:linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
+filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffab23', endColorstr='#ffec64',GradientType=0);
+background-color:#ffab23;
+}
+
+.myButton:active {
+	position: relative;
+	top: 1px;
+}
+
+#bottom {
+	background-color: #EDEDEC;
+	clear: both;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 11px;
+	padding-bottom: 12px;
+
+}
+
+#titulo {
+	float: left;
+
+}
+
+#wrapper {
+	position: static;
+	width: auto;
+	margin: auto;
+	min-width: 1500px;
+}
+
+div {
+	display: block;
+}
+
+#root {
+	width: 1500px;
+	margin: auto;
+	background-color: rgb(255, 255, 255);
+	box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.4);
+	height: 620px;
+}
+
+layer {
+	display: block;
+}
+
+#navbar {
+
+	background: #ff0000;
+	background: -webkit-linear-gradient(top, #ff0000 0%, #ffb13b 100%);
+	background: -ms-linear-gradient(top, #ff0000 0%, #ffb13b 100%);
+	background: linear-gradient(to bottom, #ff0000 0%, #ffb13b 100%);
+	border-top: 1px solid #ff0000;
+	color: #fff;
+	font: 10pt Verdana, Arial, sans-serif;
+	height: 110px;
+	margin: 15px auto auto -0px;
+	padding: 0;
+	position: relative;
+	width: 1500;
+	z-index: 200;
+
+}
+
+#buscadores {
+
+	font-family: arial;
+}
+
+</style>
+<body>
+
+	<div id="wrapper">
+		<div id="root">
+			<layer name="root">
+				<div id="navbar">
+					<table>
+						<tr>
+							<td>
+								<div id="titulo"></div>
+							</td>
+							<td>
+								<p id='cinema'>Cinema Vanguard &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>
+							</td>
+
+							<td></td>
+
+							<td>
+								&nbsp;&nbsp;&nbsp;
+								<div id='login'>
+									<form method="POST" action="/cerrarsesion">
+										<table id="cerrarsesion">
+											<tr>
+												<td id="nombredeusuario">Sesión de
+													<!--USUARIO-->
+												</td>
+											</tr>
+											<tr>
+												<td><input class="myButton" type="submit" value="Cerrar sesion"></td>
+											</tr>
+										</table>
+									</form>
+								</div>
+							</td>
+						</tr>
+					</table>
+
+				</div>
+				<header id="title2">Seleccione una opcion
+				</header>
+				<table class="login" id='menu'>
+					<tr>
+						<td>Panel de Usuario</td>
+						<td><a  class="myButton" href="/perfil">Editar mis datos</a></td>
+					</tr>
+					<tr>
+						<td>Panel peliculas</td>
+						<td><a class="myButton" href="/agregarPelicula">Añadir Pelicula</a></td>
+					</tr>
+
+					<tr>
+						<td></td>
+						<td><a class="myButton" href="/editarPelicula">Editar Pelicula</a></td>
+					</tr>
+
+					<tr>
+						<td></td>
+						<td><a class="myButton" href="/eliminarPelicula">Eliminar Pelicula</a></td>
+					</tr>
+
+					<tr>
+						<td>
+							Panel Actores
+						</td>
+						<td><a class="myButton" href="/agregarActor">Añadir actor</a></td>
+					</tr>
+
+					<tr>
+						<td></td>
+						<td><a class="myButton" href="/editarActor">Editar actor</a></td>
+					</tr>
+
+					<tr>
+						<td></td>
+						<td><a class="myButton" href="/eliminarActor">Eliminar actor</a></td>
+					</tr>
+
+				</table>
+			</layer>
+		</div>
+	</div>
+</body>
+</html>

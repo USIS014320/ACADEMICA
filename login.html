@@ -1,56 +1,323 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-  <meta charset="UTF-8">
-  <title>Login</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <link rel="stylesheet" href="LOGIN/css/logiar.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-
-
-  <!--Código JavaScript-->
-  <script type="text/javascript">
-    $(document).ready(function () {
-      $('.message a').click(function () {
-        $('form').animate({
-          height: "toggle",
-          opacity: "toggle"
-        }, "slow");
-        $('#idMensajeEror').hide();
-      });
-    });
-  </script>
-
+	<meta charset="utf-8">
+	<title>	Inicio</title>
+	<link type="text/css" rel="stylesheet" href="static/css/prueba.css">
 </head>
 
-<body>
-  <div class="alert alert-success">
-    <strong>Bienvenido </strong> Pudes iniciar sesion o registrarte en caso de que no tengas una cuenta.
-  </div>
-  <div clas="Login-page">
-    <div class="form">
-      <form class="register-form" action="/registrar" method="POST">
-        <input type="email" name="nmCorreoRegistro" required placeholder="correro" />
-        <input type="password" name="nmPasswordRegistro" required placeholder="password" />
-        <input type="text" name="nmNombreRegistro" required placeholder="nombre" />
-        <button type="submit">Registrar</button>
-        <p class="message"> ¿Ya estas registrado? <a href="#">Ingresa</a></p>
-      </form>
-      <form class="login-form" action="/ingresar" method="POST">
-        <input type="email" name="nmCorreoLogin" required placeholder="correo" />
-        <input type="password" name="nmPasswordLogin" required placeholder="password" />
-        <button type="submit">Ingresar</button>
-        <p class="message">¿No estas registrado? <a href="#">Registrate</a></p>
-      </form>
+<style>
+	* {
+		margin: 0px;
+		padding: 0px;
 
-    </div>
-  </div>
+	}
+
+	html {
+		background: rgb(255, 255, 255);
+
+
+	}
+
+	#actores {
+		box-shadow: 10px 5px 10px rgba(0, 0, 0, 0.4);
+		height: 230px;
+		width: 320px;
+
+
+
+	}
+
+	#fichapelicula div:not(#actores) {
+
+		box-shadow: 10px 5px 10px rgba(0, 0, 0, 0.4);
+		height: 79px;
+		width: 320px;
+
+
+
+	}
+
+	#fichapelicula {}
+
+	#cinema {
+		font-family: "Palatino", sans-serif;
+		font-size: 30px;
+		display: block;
+		margin: 0 auto 0 200px;
+	}
+
+	.clear {
+
+		clear: both;
+	}
+
+	#trailer {
+		margin-left: 185px;
+	}
+
+	#fichapelicula {
+		height: 400px;
+		width: 610px;
+		margin: auto;
+
+
+	}
+
+	#mostrar {
+
+		border: 1px;
+		border-color: black;
+
+
+
+	}
+
+	#titulo {
+
+		margin-top: 7px;
+		margin-left: 15px;
+		width: 100px;
+		height: 86px;
+		background: url(../img/logo.png);
+		background-size: 100% 100%;
+
+	}
+
+	.nuevousuario {
+		color: orange;
+		float: down;
+		margin-top: 70px;
+
+	}
+
+	.myButton {
+	-moz-box-shadow: 0px 1px 0px 0px #fff6af;
+	-webkit-box-shadow: 0px 1px 0px 0px #fff6af;
+	box-shadow: 0px 1px 0px 0px #fff6af;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffec64), color-stop(1, #ffab23));
+	background:-moz-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+	background:-webkit-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+	background:-o-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+	background:-ms-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+	background:linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffec64', endColorstr='#ffab23',GradientType=0);
+	background-color:#ffec64;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #ffaa22;
+	display:inline-block;
+	cursor:pointer;
+	color:#333333;
+	font-family:arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffee66;
+}
+.myButton:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffab23), color-stop(1, #ffec64));
+	background:-moz-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+	background:-webkit-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+	background:-o-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+	background:-ms-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+	background:linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffab23', endColorstr='#ffec64',GradientType=0);
+	background-color:#ffab23;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+	.myButton:active {
+		position: relative;
+		top: 1px;
+	}
+
+	#bottom {
+		box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.4);
+		background-color: #EDEDEC;
+		clear: both;
+		font-family: Verdana, Geneva, sans-serif;
+		font-size: 11px;
+		padding-bottom: 12px;
+
+	}
+
+	#bpelicula {
+		float: left;
+
+	}
+
+	#bactor {
+		float: right;
+
+	}
+
+	#titulo {
+		float: left;
+
+	}
+
+	#login {
+
+		float: right;
+	}
+
+	#wrapper {
+		position: static;
+		width: auto;
+		margin: auto;
+		min-width: 1008px;
+	}
+
+	div {
+		display: block;
+	}
+
+	#root {
+	width: 1500px;
+	margin: auto;
+	background-color: rgb(255, 255, 255);
+	box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.4);
+	height: 620px;
+	}
+
+	layer {
+	display: block;
+	}
+	#navbar {
+
+	background: #ff0000;
+	background: -webkit-linear-gradient(top, #ff0000 0%, #ffb13b 100%);
+	background: -ms-linear-gradient(top, #ff0000 0%, #ffb13b 100%);
+	background: linear-gradient(to bottom, #ff0000 0%, #ffb13b 100%);
+	border-top: 1px solid #ff0000;
+	color: #fff;
+	font: 10pt Verdana, Arial, sans-serif;
+	height: 110px;
+	margin: 15px auto auto -0px;
+	padding: 0;
+	position: relative;
+	width: 1500;
+	z-index: 200;
+
+	}
+
+	#buscadores {
+
+		font-family: arial;
+	}
+</style>
+
+<body>
+
+	<div id="wrapper">
+		<div id="root">
+			<layer name="root">
+				<div id="navbar">
+					<table>
+						<tr>
+							<td>
+								<div id="titulo"></div>
+							</td>
+							<td>
+								<p id='cinema'>Cinema Vanguard &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>
+							</td>
+							<td></td>
+
+							<td>
+								<div id='login'>
+									<form method="POST" action="/login" id="login">
+										<table class="login">
+											<tr>
+												<td class="rjust"><label>Usuario</label></td>
+												<td><input type="text" name="usuario" required>
+												</td>
+
+											</tr>
+											<tr>
+												<td class="rjust"><label>Contraseña</label></td>
+												<td><input type="password" name="password" required></td>
+												<td><input class="myButton" type="submit" value="Entrar"></td>
+
+											</tr>
+											<tr>
+												<!--MENSAJE-->
+											</tr>
+
+
+										</table>
+										<a class="nuevousuario" href="static/Registro.html">Registrarse</a>
+									</form>
+								</div>
+							</td>
+						</tr>
+					</table>
+
+				</div>
+				<section id="buscadores">
+					<form method="POST" action="/buscarpelicula" id="bpelicula">
+						<table class="bpelicula" id="bpelicula" action='/buscarpelicula'>
+							<tr>
+								<td class="ljust" align="center"><label>Buscar Pelicula</label></td>
+								<td><input type="text" name="pelicula" required>
+								</td>
+								<td><input class="myButton" type="submit" value="Buscar"></td>
+								<td>
+
+							</tr>
+						</table>
+
+					</form>
+					<form method="POST" action="/buscaractor" id="bactor">
+						<table class="bactor" id="bactor">
+							<tr>
+								<td class="ljust"><label>Buscar Actor</label></td>
+								<td><input type="text" name="actor" required>
+								</td>
+								<td><input class="myButton" type="submit" value="Buscar"></td>
+								<td>
+
+							</tr>
+						</table>
+
+					</form>
+					<form method="POST" action="/votar" id="bpelicula">
+						<table>
+							<tr>
+								<td><label>Votar Pelicula</label></td>
+
+								<td>
+									<select name="listapelicula" id="lista">
+										<option value="accion">Seleccione pelicula</option>
+										<!--PELICULAS-->
+									</select>
+								</td>
+
+								<td><input class="myButton" type="submit" value="Votar"></td>
+								<td>
+
+							</tr>
+						</table>
+
+					</form>
+					<article class='clear' id='mostrar'>
+						<!--MOVIE-->
+						<!--ACTOR-->
+						<!--RECOMENDADA-->
+
+						<!--UPS-->
+					</article>
+				</section>
+			</layer>
+
+		</div>
+	</div>
 </body>
 
 </html>
